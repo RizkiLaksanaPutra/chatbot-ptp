@@ -1,0 +1,13 @@
+.sidebar-container {
+  padding: 0.5rem;
+  color: #ffffff;
+  background-color: #1e4288;
+}
+
+@media (min-width: 768px) {
+  .sidebar-container {
+    display: block;
+    padding: 3rem;
+    grid-column: span 3 / span 3;
+  }
+}
