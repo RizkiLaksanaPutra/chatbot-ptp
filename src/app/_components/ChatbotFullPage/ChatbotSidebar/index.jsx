@@ -22,7 +22,7 @@ export default function ChatbotSidebar(props) {
             <span className="text-gray-600 font-semibold"><PiNotePencil /></span>
         </div>
         <div>
-          <button onClick={props.handleModelToggle}>Ganti Model</button>
+          <button className="flex flex-row justify-between items-center bg-white text-zinc-800 rounded-md shadow py-2 px-4 mb-5 cursor-pointer"s onClick={props.handleModelToggle}>Ganti Model</button>
           <p>Model Saat ini: {props.modelType}</p>
         </div>
       </div>
