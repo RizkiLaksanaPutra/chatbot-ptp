@@ -91,6 +91,32 @@ export default function ChatbotMainContent(props) {
     chatBox.scrollTo(0, chatBox.scrollHeight);
   };
 
+  // const parseMessage = (message) => {
+  //   const lines = message.split('\n');
+  //   return lines.map((line, index) => {
+  //     if (line.startsWith('**') && line.endsWith('**')) {
+  //       return <strong key={index}>{line.slice(2, -2)}</strong>;
+  //     } else if (line.startsWith('*')) {
+  //       return <li key={index}>{line.slice(1)}</li>;
+  //     } else {
+  //       return <p key={index}>{line}</p>
+  //     }
+  //   });
+  // };
+
+  const parseMessage = (message) => {
+    const lines = message("\n");
+    return lines.map((line, index) => {
+      if (line.startsWith("*")) {
+        return <li key={index}>{line.slice(1)}</li>;
+      } else if (line.startsWith("**") && line.endsWith("**")) {
+        return <strong key={index}>{line.slice(2, -2)}</strong>;
+      } else {
+        return <p key={index}>{line}</p>;
+      }
+    });
+  };
+
   return (
     <div className="col-span-12 bg-[#FFFFFF] p-4 md:col-span-9 md:p-12">
       <div className="w-full">
@@ -106,7 +132,7 @@ export default function ChatbotMainContent(props) {
             </span>
             <div className={styles["chat-bubble"]}>
               <p>
-                Selamat datang di chatbot PTP, silahkan tanya seputar PTP 👋
+                Selamat datang di Chatbot PTP, silahkan tanya seputar PTP 👋
               </p>
             </div>
           </li>
@@ -151,7 +177,7 @@ export default function ChatbotMainContent(props) {
           ))}
         </ul>
       </div>
-      <div className="flex items-center justify-evenly border-t border-gray-300 p-5 relative">
+      <div className="relative flex items-center justify-evenly border-t border-gray-300 p-5">
         <textarea
           ref={chatInputRef}
           placeholder="Enter a message..."

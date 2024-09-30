@@ -48,8 +48,8 @@ const loadPdfDocuments = async () => {
 const splitDocuments = async (documents) => {
   try {
     const splitter = new RecursiveCharacterTextSplitter({
-      chunkSize: 1000,
-      chunkOverlap: 20,
+      chunkSize: 2000,
+      chunkOverlap: 200,
     });
 
     return await splitter.splitDocuments(documents);
@@ -86,8 +86,6 @@ const createRetriever = (vectorStore) => {
 const createChain = async (model, retriever) => {
   const promptTemplate = `
   Gunakan informasi berikut ini untuk menjawab pertanyaan di akhir.
-  Gunakan maksimal tiga kalimat dan buat jawabannya sepadat mungkin.
-  Selalu akhiri dengan ucapan terima karena telah bertanya.
   Jika Anda tidak tahu jawabannya atau jawabannya tidak ada di dalam konteks, selalu jawab dengan dengan kata "no_answer" dan jangan ucapkan terima kasih.
 
   Konteks: {context}
@@ -141,8 +139,8 @@ const initialize = async () => {
     const model = new ChatGoogleGenerativeAI({
       apiKey: process.env.GOOGLE_API_KEY,
       model: "gemini-1.5-flash",
-      temperature: 0.5,
-      maxRetries: 2,
+      temperature: 0.9,
+      maxRetries: 4,
     });
 
     const loadedDocuments = await loadPdfDocuments();
