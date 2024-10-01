@@ -8,6 +8,7 @@
   display: flex;
   list-style: none;
 }
+
 .chatbox .outgoing {
   margin: 20px 0;
   justify-content: flex-end;
@@ -20,7 +21,7 @@
 
 .chatbox .incoming > span {
   width: 50px;
-  height:50px;
+  height: 50px;
   color: #fff;
   cursor: default;
   text-align: center;
@@ -30,6 +31,7 @@
   border-radius: 4px;
   margin: 0 10px 7px 0;
 }
+
 .chatbox .chat .chat-bubble {
   white-space: pre-wrap;
   padding: 12px 16px;
@@ -39,17 +41,22 @@
   font-size: 0.95rem;
   background: #1e4288;
 }
+
 .chatbox .incoming .chat-bubble {
   border-radius: 10px 10px 10px 0;
+  color: #000;
+  background: #f2f2f2;
 }
+
+.chatbox .incoming .chat-bubble p {
+  margin-bottom: 10px;
+}
+
 .chatbox .chat .chat-bubble.error {
   color: #721c24;
   background: #f8d7da;
 }
-.chatbox .incoming .chat-bubble {
-  color: #000;
-  background: #f2f2f2;
-}
+
 .chatbot .chat-input {
   display: flex;
   gap: 5px;
@@ -60,6 +67,7 @@
   padding: 3px 20px;
   border-top: 1px solid #ddd;
 }
+
 .chat-input textarea {
   height: 55px;
   width: 100%;
@@ -70,6 +78,7 @@
   padding: 15px 15px 15px 0;
   font-size: 0.95rem;
 }
+
 .chat-input span {
   align-self: flex-end;
   color: #1e4288;
@@ -80,6 +89,7 @@
   visibility: hidden;
   font-size: 1.35rem;
 }
+
 .chat-input textarea:valid ~ span {
   visibility: visible;
 }

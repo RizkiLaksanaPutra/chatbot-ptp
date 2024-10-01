@@ -99,7 +99,7 @@ export default function Chatbot(props) {
       ? response?.answer
       : "Maaf, saya tidak dapat menjawab pertanyaan tersebut dengan informasi yang tersedia. Terima kasih telah bertanya.";
 
-    const sourceDocuments = !response?.answer.includes("no_answer")
+    const sourceDocuments = !response?.answer.includes("Maaf")
       ? (response?.sourceDocuments ?? [])
       : [];
 

@@ -25,7 +25,7 @@ export default function ChatbotFullPage() {
         />
         <ChatbotMainContent modelType={modelType}/>
       </div>
-      <Chatbot modelType={modelType}/>
+      {/* <Chatbot modelType={modelType}/> */}
     </>
   );
 }

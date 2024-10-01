@@ -75,7 +75,7 @@ export default function ChatbotMainContent(props) {
       ? response?.answer
       : "Maaf, saya tidak dapat menjawab pertanyaan tersebut dengan informasi yang tersedia. Terima kasih telah bertanya.";
 
-    const sourceDocuments = !response?.answer.includes("no_answer")
+    const sourceDocuments = !response?.answer.includes("Maaf")
       ? (response?.sourceDocuments ?? [])
       : [];
 
@@ -91,28 +91,15 @@ export default function ChatbotMainContent(props) {
     chatBox.scrollTo(0, chatBox.scrollHeight);
   };
 
-  // const parseMessage = (message) => {
-  //   const lines = message.split('\n');
-  //   return lines.map((line, index) => {
-  //     if (line.startsWith('**') && line.endsWith('**')) {
-  //       return <strong key={index}>{line.slice(2, -2)}</strong>;
-  //     } else if (line.startsWith('*')) {
-  //       return <li key={index}>{line.slice(1)}</li>;
-  //     } else {
-  //       return <p key={index}>{line}</p>
-  //     }
-  //   });
-  // };
-
   const parseMessage = (message) => {
-    const lines = message("\n");
+    const lines = message.split("\n");
     return lines.map((line, index) => {
       if (line.startsWith("*")) {
-        return <li key={index}>{line.slice(1)}</li>;
-      } else if (line.startsWith("**") && line.endsWith("**")) {
-        return <strong key={index}>{line.slice(2, -2)}</strong>;
+        const content = line.slice(1).replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+        return <li key={index} dangerouslySetInnerHTML={{ __html: content }} />;
       } else {
-        return <p key={index}>{line}</p>;
+        const content = line.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+        return <p key={index} dangerouslySetInnerHTML={{ __html: content }} />;
       }
     });
   };
@@ -152,7 +139,7 @@ export default function ChatbotMainContent(props) {
                 </span>
               )}
               <div className={styles["chat-bubble"]}>
-                <p>{message.value}</p>
+                <div>{parseMessage(message.value)}</div>
                 {message?.sourceDocuments &&
                   message?.sourceDocuments.length > 0 && (
                     <>
@@ -177,7 +164,7 @@ export default function ChatbotMainContent(props) {
           ))}
         </ul>
       </div>
-      <div className="relative flex items-center justify-evenly border-t border-gray-300 p-5">
+      <div className="flex items-center justify-between border-t border-gray-300 drop-shadow-lg">
         <textarea
           ref={chatInputRef}
           placeholder="Enter a message..."
@@ -185,10 +172,10 @@ export default function ChatbotMainContent(props) {
           value={userMessage}
           onChange={handleUserMessage}
           required
-          className="w-[90%] resize-none outline-none"
+          className="w-full resize-none pl-2 pt-1 outline-none"
         ></textarea>
         <span
-          className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-lg bg-blue-900 text-white hover:bg-blue-800"
+          className="flex h-[73.20px] w-16 cursor-pointer items-center justify-center bg-blue-900 text-white hover:bg-blue-800"
           onClick={handleSendMessage}
         >
           <PiPaperPlaneRightFill />

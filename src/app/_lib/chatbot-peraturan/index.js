@@ -85,8 +85,7 @@ const createRetriever = (vectorStore) => {
 
 const createChain = async (model, retriever) => {
   const promptTemplate = `
-  Gunakan informasi berikut ini untuk menjawab pertanyaan di akhir.
-  Jika Anda tidak tahu jawabannya atau jawabannya tidak ada di dalam konteks, selalu jawab dengan dengan kata "no_answer" dan jangan ucapkan terima kasih.
+  Anda adalah seorang asisten yang dapat membantu menjawab pertanyaan user secara lengkap dan detail, jawablah pertanyaan user dengan bahasa indonesia.
 
   Konteks: {context}
   Pertanyaan: {input}
