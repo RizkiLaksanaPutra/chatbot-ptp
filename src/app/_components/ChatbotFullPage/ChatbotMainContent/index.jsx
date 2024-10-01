@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "./style.module.css";
 import { PiPaperPlaneRightFill } from "react-icons/pi";
+import Markdown from "react-markdown";
 
 const generateResponse = async (prompt, modelType) => {
   const payload = {
@@ -91,19 +92,6 @@ export default function ChatbotMainContent(props) {
     chatBox.scrollTo(0, chatBox.scrollHeight);
   };
 
-  const parseMessage = (message) => {
-    const lines = message.split("\n");
-    return lines.map((line, index) => {
-      if (line.startsWith("*")) {
-        const content = line.slice(1).replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-        return <li key={index} dangerouslySetInnerHTML={{ __html: content }} />;
-      } else {
-        const content = line.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-        return <p key={index} dangerouslySetInnerHTML={{ __html: content }} />;
-      }
-    });
-  };
-
   return (
     <div className="col-span-12 bg-[#FFFFFF] p-4 md:col-span-9 md:p-12">
       <div className="w-full">
@@ -139,7 +127,7 @@ export default function ChatbotMainContent(props) {
                 </span>
               )}
               <div className={styles["chat-bubble"]}>
-                <div>{parseMessage(message.value)}</div>
+                <Markdown>{message.value}</Markdown>
                 {message?.sourceDocuments &&
                   message?.sourceDocuments.length > 0 && (
                     <>
@@ -172,10 +160,10 @@ export default function ChatbotMainContent(props) {
           value={userMessage}
           onChange={handleUserMessage}
           required
-          className="w-full resize-none pl-2 pt-1 outline-none"
+          className="w-full resize-none pl-2 pt-1 outline-none h-16"
         ></textarea>
         <span
-          className="flex h-[73.20px] w-16 cursor-pointer items-center justify-center bg-blue-900 text-white hover:bg-blue-800"
+          className="flex h-16 w-16 cursor-pointer items-center justify-center bg-blue-900 text-white hover:bg-blue-800"
           onClick={handleSendMessage}
         >
           <PiPaperPlaneRightFill />
