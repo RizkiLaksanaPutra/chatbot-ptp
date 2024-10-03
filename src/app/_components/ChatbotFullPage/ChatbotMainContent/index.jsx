@@ -131,7 +131,6 @@ export default function ChatbotMainContent(props) {
                 {message?.sourceDocuments &&
                   message?.sourceDocuments.length > 0 && (
                     <>
-                      <br />
                       <strong>Sumber:</strong>
                       <ul className={styles["source-documents"]}>
                         {message.sourceDocuments.map((doc, docIndex) => (

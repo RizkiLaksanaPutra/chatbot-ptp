@@ -25,6 +25,11 @@ export default function ChatbotSidebar(props) {
           <button className="flex flex-row justify-between items-center bg-white text-zinc-800 rounded-md shadow py-2 px-4 mb-5 cursor-pointer" onClick={props.handleModelToggle}>Ganti Topik</button>
           <p>Topik Saat ini: <span className="capitalize font-bold">{props.modelType}</span></p>
         </div>
+        <div>
+          <p><b>Topik Peraturan</b> berisikan tentang informasi berbagai peraturan melaui Surat Edaran</p>
+          <br />
+          <p><b>Topik Pengetahuan</b> berisikan tentang ilmu pembelajaran melalui E-Book dan jurnal</p>
+        </div>
       </div>
     </div>
   );

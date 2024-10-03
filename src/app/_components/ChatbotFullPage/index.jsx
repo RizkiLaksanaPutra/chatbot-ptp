@@ -3,7 +3,6 @@
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import styles from "./style.module.css";
-import Chatbot from "@/components/Chatbot";
 import ChatbotMainContent from "@/components/ChatbotFullPage/ChatbotMainContent";
 import ChatbotSidebar from "@/components/ChatbotFullPage/ChatbotSidebar";
 
@@ -25,7 +24,6 @@ export default function ChatbotFullPage() {
         />
         <ChatbotMainContent modelType={modelType}/>
       </div>
-      {/* <Chatbot modelType={modelType}/> */}
     </>
   );
 }

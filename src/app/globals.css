@@ -12,6 +12,26 @@
   html, body {
     @apply text-base;
   }
+
+  h1 {
+    @apply text-[2em] mb-4
+  }
+
+  h2 {
+    @apply text-[1.5em] mb-4
+  }
+
+  h3 {
+    @apply text-[1.17em]
+  }
+
+  ul {
+    @apply list-none
+  }
+
+  li {
+    @apply list-disc ml-4
+  }
 }
 
 @layer utilities {

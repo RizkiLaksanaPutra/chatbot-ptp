@@ -100,6 +100,11 @@
   list-style-type: disc;
 }
 
+.source-documents li {
+  margin: 0;
+  
+}
+
 .source-documents li > a {
   color: #1e4288;
   font-size: 0.9rem;

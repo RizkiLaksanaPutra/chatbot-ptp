@@ -9,6 +9,7 @@ import {
   PiPaperPlaneRightFill,
 } from "react-icons/pi";
 import Image from "next/image";
+import Markdown from "react-markdown";
 
 import styles from "./style.module.css";
 
@@ -35,10 +36,18 @@ const generateResponse = async (prompt, modelType) => {
   return data;
 };
 
-export default function Chatbot(props) {
+export default function Chatbot() {
   const [showChat, setShowChat] = useState(false);
   const [userMessage, setUserMessage] = useState("");
   const [messageHistory, setMessageHistory] = useState([]);
+  const [modelType, setModelType] = useState("peraturan");
+  const handleModelTypeChange = () => {
+    if (modelType === "peraturan") {
+      setModelType("pengetahuan");
+    } else if (modelType === "pengetahuan") {
+      setModelType("peraturan");
+    }
+  };
 
   const inputInitHeightRef = useRef(0);
   const chatInputRef = useRef(null);
@@ -92,7 +101,7 @@ export default function Chatbot(props) {
       ];
     });
 
-    const response = await generateResponse(message, props.modelType);
+    const response = await generateResponse(message, modelType);
     console.log(response);
 
     const answer = !response?.answer.includes("no_answer")
@@ -136,21 +145,33 @@ export default function Chatbot(props) {
       <div className={styles["chatbot"]}>
         <header className={styles["chatbot-header"]}>
           <h2>Chatbot</h2>
-          <h1
-            className={`${styles["projects-pd-subdetail"]} ${styles["projects-pd-text"]}`}
-          ></h1>
-          <span className={styles["close-button"]}>
+          <h1 className={`${styles['projects-pd-subdetail']} ${styles['projects-pd-text']}`}></h1>
+          <span className={styles["close-button"]} onClick={() => setShowChat(false)}>
             <PiXBold />
           </span>
+          <div className={styles["model-button"]}>
+            <button onClick={() => handleModelTypeChange()}>Ganti Topik</button>
+            <p>
+              Topik Saat ini:
+              <span className="font-bold capitalize"> {modelType}</span>
+            </p>
+          </div>
         </header>
 
         <ul ref={chatBoxRef} className={styles["chatbox"]}>
           <li className={`${styles["chat"]} ${styles["incoming"]}`}>
             <span>
-              <Image src='/assets/images/mascot.png' alt="" width={100} height={100} />
+              <Image
+                src="/assets/images/mascot.png"
+                alt=""
+                width={100}
+                height={100}
+              />
             </span>
             <div className={styles["chat-bubble"]}>
-              <p>Selamat datang di chatbot PTP, silahkan tanya seputar PTP 👋</p>
+              <p>
+                Selamat datang di chatbot PTP, silahkan tanya seputar PTP 👋
+              </p>
             </div>
           </li>
           {messageHistory.map((message, index) => (
@@ -160,21 +181,25 @@ export default function Chatbot(props) {
             >
               {message.type === "incoming" && (
                 <span>
-                  <Image src='/assets/images/mascot.png' alt="" width={100} height={100} />
+                  <Image
+                    src="/assets/images/mascot.png"
+                    alt=""
+                    width={100}
+                    height={100}
+                  />
                 </span>
               )}
               <div className={styles["chat-bubble"]}>
-                <p>{message.value}</p>
+                <Markdown>{message.value}</Markdown>
                 {message?.sourceDocuments &&
                   message?.sourceDocuments.length > 0 && (
                     <>
-                      <br />
                       <strong>Sumber:</strong>
                       <ul className={styles["source-documents"]}>
                         {message.sourceDocuments.map((doc, docIndex) => (
                           <li key={docIndex}>
                             <Link
-                              href={`/assets/documents/pdf/${props.modelType}/${doc}`}
+                              href={`/assets/documents/pdf/${modelType}/${doc}`}
                               target="_blank"
                             >
                               {doc}
