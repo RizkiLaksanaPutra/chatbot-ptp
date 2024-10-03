@@ -8,6 +8,7 @@ import styles from "./style.module.css";
 
 export default function ChatbotSidebar(props) {
   return (
+    <>
     <div className="hidden bg-[#1E4288] p-2 text-white md:col-span-3 md:block md:p-12">
       <div className="flex flex-col justify-start gap-8">
         <Image
@@ -32,5 +33,9 @@ export default function ChatbotSidebar(props) {
         </div>
       </div>
     </div>
+    {/* <div>
+      <span></span>
+    </div> */}
+    </>
   );
 }
