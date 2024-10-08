@@ -5,7 +5,7 @@ import Link from "next/link";
 import {
   PiChatDotsFill,
   PiXBold,
-  PiRobotFill,
+  PiArrowClockwise,
   PiPaperPlaneRightFill,
 } from "react-icons/pi";
 import Image from "next/image";
@@ -127,6 +127,10 @@ export default function Chatbot() {
     chatBox.scrollTo(0, chatBox.scrollHeight);
   };
 
+  const HandleClearChat = () => {
+    setMessageHistory([]);
+  }
+
   return (
     <div className={showChat ? styles["show-chatbot"] : ""}>
       <button
@@ -150,6 +154,7 @@ export default function Chatbot() {
             <PiXBold />
           </span>
           <div className={styles["model-button"]}>
+            <span onClick={HandleClearChat}><PiArrowClockwise /></span>
             <button onClick={() => handleModelTypeChange()}>Ganti Topik</button>
             <p>
               Topik Saat ini:
@@ -168,7 +173,7 @@ export default function Chatbot() {
                 height={100}
               />
             </span>
-            <div className={styles["chat-bubble"]}>
+            <div className={styles["chat-bubble"]} id="greet">
               <p>
                 Selamat datang di chatbot PTP, silahkan tanya seputar PTP 👋
               </p>

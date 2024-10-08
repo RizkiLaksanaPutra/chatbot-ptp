@@ -97,6 +97,9 @@
   background-color: white;
   color: black;
 }
+.model-button span {
+  cursor: pointer;
+}
 .chatbox .chat {
   display: flex;
   list-style: none;

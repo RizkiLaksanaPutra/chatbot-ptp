@@ -21,21 +21,28 @@ export default function ChatbotFullPage() {
   };
 
   const handleSideBar = () => {
-    setShowSideBar(!showSideBar)
-  }
+    setShowSideBar(!showSideBar);
+  };
 
   return (
     <>
-      <nav className="md:hidden flex flex-row justify-between px-8 py-2 border-b border-slate-600">
-        <span className="cursor-pointer p-2" onClick={handleSideBar}><PiListBold /></span>
-        <SidebarMobile open={showSideBar} modelType={modelType} handleModelToggle={handleModelTypeChange} handleSideBarToggle={handleSideBar}/>
+      <nav className="flex flex-row justify-between border-b border-slate-600 px-4 py-2 md:hidden">
+        <span className="cursor-pointer p-2" onClick={handleSideBar}>
+          <PiListBold />
+        </span>
+        <SidebarMobile
+          open={showSideBar}
+          modelType={modelType}
+          handleModelToggle={handleModelTypeChange}
+          handleSideBarToggle={handleSideBar}
+        />
       </nav>
       <div className="grid h-[100vh] w-full grid-cols-12 bg-white">
         <ChatbotSidebar
           handleModelToggle={handleModelTypeChange}
           modelType={modelType}
         />
-        <ChatbotMainContent modelType={modelType}/>
+        <ChatbotMainContent modelType={modelType} />
       </div>
     </>
   );
