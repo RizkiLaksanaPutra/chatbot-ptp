@@ -42,7 +42,9 @@ export default function ChatbotFullPage() {
           handleModelToggle={handleModelTypeChange}
           modelType={modelType}
         />
-        <ChatbotMainContent modelType={modelType} />
+        <ChatbotMainContent
+          modelType={modelType}
+        />
       </div>
     </>
   );

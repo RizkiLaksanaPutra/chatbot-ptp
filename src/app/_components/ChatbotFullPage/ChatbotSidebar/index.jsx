@@ -1,12 +1,15 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
+import { MessageHistoryContext } from "@/contexts/MessageHistory";
 import Link from "next/link";
 import Image from "next/image";
 import { PiNotePencil } from "react-icons/pi";
 import styles from "./style.module.css";
 
 export default function ChatbotSidebar(props) {
+  const messageHistoryCtx = useContext(MessageHistoryContext);
+
   return (
     <>
     <div className="hidden bg-[#1E4288] p-2 text-white md:col-span-3 md:block md:p-12">
@@ -18,7 +21,7 @@ export default function ChatbotSidebar(props) {
           height={500}
           className="h-auto rounded-lg"
         />
-        <div className="flex flex-row justify-between items-center bg-white rounded-md shadow py-2 px-4 cursor-pointer">
+        <div className="flex flex-row justify-between items-center bg-white rounded-md shadow py-2 px-4 cursor-pointer" onClick={messageHistoryCtx.clear}>
           <p className="text-gray-600 font-normal">Hapus Percakapan</p>
           <span className="text-gray-600 font-semibold"><PiNotePencil /></span>
         </div>
@@ -33,9 +36,6 @@ export default function ChatbotSidebar(props) {
         </div>
       </div>
     </div>
-    {/* <div>
-      <span></span>
-    </div> */}
     </>
   );
 }

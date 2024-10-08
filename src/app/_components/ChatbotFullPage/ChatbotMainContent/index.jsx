@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./style.module.css";
 import { PiPaperPlaneRightFill } from "react-icons/pi";
 import Markdown from "react-markdown";
+import { MessageHistoryContext } from "@/contexts/MessageHistory";
 
 const generateResponse = async (prompt, modelType) => {
   const payload = {
@@ -30,8 +31,8 @@ const generateResponse = async (prompt, modelType) => {
 };
 
 export default function ChatbotMainContent(props) {
+  const messageHistoryCtx = useContext(MessageHistoryContext);
   const [userMessage, setUserMessage] = useState("");
-  const [messageHistory, setMessageHistory] = useState([]);
 
   const chatInputRef = useRef(null);
   const chatBoxRef = useRef(null);
@@ -54,19 +55,16 @@ export default function ChatbotMainContent(props) {
 
     setUserMessage("");
 
-    setMessageHistory((prevMessageHistory) => [
-      ...prevMessageHistory,
-      { type: "outgoing", value: message },
-    ]);
+    messageHistoryCtx.insert({
+      type: "outgoing",
+      value: message,
+    });
     chatBox.scrollTo(0, chatBox.scrollHeight);
 
-    let thinkingIndex;
-    setMessageHistory((prevMessageHistory) => {
-      thinkingIndex = prevMessageHistory.length;
-      return [
-        ...prevMessageHistory,
-        { type: "incoming", value: "Thinking...", sourceDocuments: [] },
-      ];
+    messageHistoryCtx.insert({
+      type: "incoming",
+      value: "Thinking...",
+      sourceDocuments: [],
     });
 
     const response = await generateResponse(message, props.modelType);
@@ -80,14 +78,10 @@ export default function ChatbotMainContent(props) {
       ? (response?.sourceDocuments ?? [])
       : [];
 
-    setMessageHistory((prevMessageHistory) => {
-      const updatedHistory = [...prevMessageHistory];
-      updatedHistory[thinkingIndex] = {
-        type: "incoming",
-        value: answer,
-        sourceDocuments,
-      };
-      return updatedHistory;
+    messageHistoryCtx.replace({
+      type: "incoming",
+      value: answer,
+      sourceDocuments,
     });
     chatBox.scrollTo(0, chatBox.scrollHeight);
   };
@@ -111,7 +105,7 @@ export default function ChatbotMainContent(props) {
               </p>
             </div>
           </li>
-          {messageHistory.map((message, index) => (
+          {messageHistoryCtx.message.map((message, index) => (
             <li
               key={index}
               className={`${styles["chat"]} ${styles[message.type]}`}
@@ -159,7 +153,7 @@ export default function ChatbotMainContent(props) {
           value={userMessage}
           onChange={handleUserMessage}
           required
-          className="w-full resize-none pl-2 pt-1 outline-none h-16"
+          className="h-16 w-full resize-none pl-2 pt-1 outline-none"
         ></textarea>
         <span
           className="flex h-16 w-16 cursor-pointer items-center justify-center bg-blue-900 text-white hover:bg-blue-800"
