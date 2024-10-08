@@ -127,7 +127,7 @@ export default function Chatbot() {
     chatBox.scrollTo(0, chatBox.scrollHeight);
   };
 
-  const HandleClearChat = () => {
+  const handleClearChat = () => {
     setMessageHistory([]);
   }
 
@@ -154,7 +154,7 @@ export default function Chatbot() {
             <PiXBold />
           </span>
           <div className={styles["model-button"]}>
-            <span onClick={HandleClearChat}><PiArrowClockwise /></span>
+            <span onClick={handleClearChat}><PiArrowClockwise /></span>
             <button onClick={() => handleModelTypeChange()}>Ganti Topik</button>
             <p>
               Topik Saat ini:
