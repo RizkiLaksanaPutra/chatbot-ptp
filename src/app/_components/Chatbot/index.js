@@ -129,110 +129,124 @@ export default function Chatbot() {
 
   const handleClearChat = () => {
     setMessageHistory([]);
-  }
+  };
 
   return (
-    <div className={showChat ? styles["show-chatbot"] : ""}>
-      <button
-        type="button"
-        className={styles["chatbot-toggle"]}
-        onClick={handleToggleChat}
-      >
-        <span>
-          <PiChatDotsFill />
-        </span>
-        <span>
-          <PiXBold />
-        </span>
-      </button>
-
-      <div className={styles["chatbot"]}>
-        <header className={styles["chatbot-header"]}>
-          <h2>Chatbot</h2>
-          <h1 className={`${styles['projects-pd-subdetail']} ${styles['projects-pd-text']}`}></h1>
-          <span className={styles["close-button"]} onClick={() => setShowChat(false)}>
+    <>
+      <div>
+        <Link href='/chatbot'>Full Page</Link>
+      </div>
+      <div className={showChat ? styles["show-chatbot"] : ""}>
+        <button
+          type="button"
+          className={styles["chatbot-toggle"]}
+          onClick={handleToggleChat}
+        >
+          <span>
+            <PiChatDotsFill />
+          </span>
+          <span>
             <PiXBold />
           </span>
-          <div className={styles["model-button"]}>
-            <span onClick={handleClearChat}><PiArrowClockwise /></span>
-            <button onClick={() => handleModelTypeChange()}>Ganti Topik</button>
-            <p>
-              Topik Saat ini:
-              <span className="font-bold capitalize"> {modelType}</span>
-            </p>
-          </div>
-        </header>
+        </button>
 
-        <ul ref={chatBoxRef} className={styles["chatbox"]}>
-          <li className={`${styles["chat"]} ${styles["incoming"]}`}>
-            <span>
-              <Image
-                src="/assets/images/mascot.png"
-                alt=""
-                width={100}
-                height={100}
-              />
+        <div className={styles["chatbot"]}>
+          <header className={styles["chatbot-header"]}>
+            <h2>Chatbot</h2>
+            <h1
+              className={`${styles["projects-pd-subdetail"]} ${styles["projects-pd-text"]}`}
+            ></h1>
+            <span
+              className={styles["close-button"]}
+              onClick={() => setShowChat(false)}
+            >
+              <PiXBold />
             </span>
-            <div className={styles["chat-bubble"]} id="greet">
+            <div className={styles["model-button"]}>
+              <span onClick={handleClearChat}>
+                <PiArrowClockwise />
+              </span>
+              <button onClick={() => handleModelTypeChange()}>
+                Ganti Topik
+              </button>
               <p>
-                Selamat datang di chatbot PTP, silahkan tanya seputar PTP 👋
+                Topik Saat ini:
+                <span className="font-bold capitalize"> {modelType}</span>
               </p>
             </div>
-          </li>
-          {messageHistory.map((message, index) => (
-            <li
-              key={index}
-              className={`${styles["chat"]} ${styles[message.type]}`}
-            >
-              {message.type === "incoming" && (
-                <span>
-                  <Image
-                    src="/assets/images/mascot.png"
-                    alt=""
-                    width={100}
-                    height={100}
-                  />
-                </span>
-              )}
-              <div className={styles["chat-bubble"]}>
-                <Markdown>{message.value}</Markdown>
-                {message?.sourceDocuments &&
-                  message?.sourceDocuments.length > 0 && (
-                    <>
-                      <strong>Sumber:</strong>
-                      <ul className={styles["source-documents"]}>
-                        {message.sourceDocuments.map((doc, docIndex) => (
-                          <li key={docIndex}>
-                            <Link
-                              href={`/assets/documents/pdf/${modelType}/${doc}`}
-                              target="_blank"
-                            >
-                              {doc}
-                            </Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </>
-                  )}
+          </header>
+
+          <ul ref={chatBoxRef} className={styles["chatbox"]}>
+            <li className={`${styles["chat"]} ${styles["incoming"]}`}>
+              <span>
+                <Image
+                  src="/assets/images/mascot.png"
+                  alt=""
+                  width={100}
+                  height={100}
+                />
+              </span>
+              <div className={styles["chat-bubble"]} id="greet">
+                <p>
+                  Selamat datang di chatbot PTP, silahkan tanya seputar PTP 👋
+                </p>
               </div>
             </li>
-          ))}
-        </ul>
+            {messageHistory.map((message, index) => (
+              <li
+                key={index}
+                className={`${styles["chat"]} ${styles[message.type]}`}
+              >
+                {message.type === "incoming" && (
+                  <span>
+                    <Image
+                      src="/assets/images/mascot.png"
+                      alt=""
+                      width={100}
+                      height={100}
+                    />
+                  </span>
+                )}
+                <div className={styles["chat-bubble"]}>
+                  <Markdown>{message.value}</Markdown>
+                  {message?.sourceDocuments &&
+                    message?.sourceDocuments.length > 0 && (
+                      <>
+                        <strong>Sumber:</strong>
+                        <ul className={styles["source-documents"]}>
+                          {message.sourceDocuments.map((doc, docIndex) => (
+                            <li key={docIndex}>
+                              <Link
+                                href={`/assets/documents/pdf/${modelType}/${doc}`}
+                                target="_blank"
+                              >
+                                {doc}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    )}
+                </div>
+              </li>
+            ))}
+          </ul>
 
-        <div className={styles["chat-input"]}>
-          <textarea
-            ref={chatInputRef}
-            placeholder="Enter a message..."
-            spellCheck="false"
-            value={userMessage}
-            onChange={handleUserMessage}
-            required
-          ></textarea>
-          <span id="send-button" className="" onClick={handleSendMessage}>
-            <PiPaperPlaneRightFill />
-          </span>
+          <div className={styles["chat-input"]}>
+            <textarea
+              ref={chatInputRef}
+              placeholder="Enter a message..."
+              spellCheck="false"
+              value={userMessage}
+              onChange={handleUserMessage}
+              required
+            ></textarea>
+            <span id="send-button" className="" onClick={handleSendMessage}>
+              <PiPaperPlaneRightFill />
+            </span>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
