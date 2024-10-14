@@ -12,7 +12,7 @@ export default function ChatbotSidebar(props) {
 
   return (
     <>
-    <div className="hidden bg-[#1E4288] p-2 text-white md:col-span-3 md:block md:p-12">
+    <div className="hidden bg-[url('/assets/images/background.png')] bg-no-repeat bg-cover p-2 text-black md:col-span-3 md:block md:p-12">
       <div className="flex flex-col justify-start gap-8">
         <Image
           src="/assets/images/Logo PTP Rectangle.png"
@@ -22,7 +22,7 @@ export default function ChatbotSidebar(props) {
           className="h-auto rounded-lg"
         />
         <div className="flex flex-row justify-between items-center bg-white rounded-md shadow py-2 px-4 cursor-pointer" onClick={messageHistoryCtx.clear}>
-          <p className="text-gray-600 font-normal">Hapus Percakapan</p>
+          <p className="text-gray-600 font-normal">Mulai Percakapan Ulang</p>
           <span className="text-gray-600 font-semibold"><PiNotePencil /></span>
         </div>
         <div>

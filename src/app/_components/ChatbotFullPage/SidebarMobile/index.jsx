@@ -1,11 +1,15 @@
 import Image from "next/image";
-import { PiListBold } from "react-icons/pi";
+import { useContext } from "react";
+import { PiListBold, PiNotePencil } from "react-icons/pi";
+import { MessageHistoryContext } from "@/contexts/MessageHistory";
 
 export default function SidebarMobile(props) {
+  const messageHistoryCtx = useContext(MessageHistoryContext);
+
   if (!props.open) {
     return <></>;
   }
-  
+
   return (
     <>
       <aside
@@ -26,6 +30,15 @@ export default function SidebarMobile(props) {
             height={500}
             className="h-auto rounded-lg"
           />
+          <div
+            className="flex cursor-pointer flex-row items-center justify-between rounded-md bg-white px-4 py-2 shadow"
+            onClick={messageHistoryCtx.clear}
+          >
+            <p className="font-normal text-gray-600">Mulai Percakapan Ulang</p>
+            <span className="font-semibold text-gray-600">
+              <PiNotePencil />
+            </span>
+          </div>
           <div>
             <button
               className="mb-5 flex cursor-pointer flex-row items-center justify-between rounded-md bg-white px-4 py-2 text-zinc-800 shadow"
