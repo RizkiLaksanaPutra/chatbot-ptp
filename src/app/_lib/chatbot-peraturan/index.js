@@ -5,8 +5,7 @@ import path from "path";
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 
 // Document Loader
-import { DirectoryLoader } from "langchain/document_loaders/fs/directory";
-import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
+import { Document } from "@langchain/core/documents";
 
 // Text Splitter
 import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
@@ -23,23 +22,19 @@ import { createRetrievalChain } from "langchain/chains/retrieval";
 import { StringOutputParser } from "@langchain/core/output_parsers";
 
 let isInitialized = false;
-let retriever;
 let chain;
 
 const loadPdfDocuments = async () => {
   try {
-    const pdfDirectoryPath = path.join(
+    const documentsPath = path.join(
       process.cwd(),
-      "public/assets/documents/pdf/Peraturan/"
+      "src/data/documents/pdf/peraturan/documents.json"
     );
 
-    const directoryLoader = new DirectoryLoader(pdfDirectoryPath, {
-      ".pdf": (filePath) => new PDFLoader(filePath),
-    });
+    const documents = await fs.readFile(documentsPath, { encoding: "utf-8" });
+    const parsedDocuments = JSON.parse(documents);
 
-    const directoryDocs = await directoryLoader.load();
-
-    return directoryDocs;
+    return parsedDocuments.map((document) => new Document(document));
   } catch (error) {
     throw new Error("Error while loading PDF files!", { cause: error });
   }
@@ -146,7 +141,7 @@ const initialize = async () => {
     const splitDocs = await splitDocuments(loadedDocuments);
     const vectorStore = await createVectorStore(splitDocs);
 
-    retriever = createRetriever(vectorStore);
+    const retriever = createRetriever(vectorStore);
     chain = await createChain(model, retriever);
 
     if (retriever && chain) {

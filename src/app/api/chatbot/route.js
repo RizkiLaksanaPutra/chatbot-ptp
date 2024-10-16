@@ -41,12 +41,14 @@ export async function POST(request) {
       { status: StatusCodes.OK }
     );
   } catch (error) {
+    console.log(error)
     return NextResponse.json(
       {
         code: StatusCodes.BAD_REQUEST,
         status: ReasonPhrases.BAD_REQUEST,
         errors: {
           message: "Bad request!",
+          reason: error.message,
         },
       },
       { status: StatusCodes.BAD_REQUEST }

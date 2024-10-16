@@ -33,34 +33,47 @@ export default function ChatbotFullPage() {
         aria-hidden="true"
         className={`${!showModal ? "hidden" : ""} fixed inset-0 z-50 flex items-center justify-center bg-black/50`}
       >
-        <div className="relative max-h-full w-full max-w-2xl p-4">
-          <div className="relative rounded-lg bg-white shadow dark:bg-gray-700">
-            <div className="flex items-center justify-between rounded-t border-b p-4 md:p-5 dark:border-gray-600">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                Terms of Service
+        <div className="relative max-h-full w-full max-w-3xl p-4">
+          <div className="relative rounded-lg bg-white">
+            <div className="flex items-center justify-center rounded-t p-4 md:p-5">
+              <h3 className="text-xl font-semibold text-black">
+                Tips untuk memulai
               </h3>
             </div>
-            <div className="space-y-4 p-4 md:p-5">
-              <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                With less than a month to go before the European Union enacts
-                new consumer privacy laws for its citizens, companies around the
-                world are updating their terms of service agreements to comply.
-              </p>
-              <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                The European Union’s General Data Protection Regulation
-                (G.D.P.R.) goes into effect on May 25 and is meant to ensure a
-                common set of data rights in the European Union. It requires
-                organizations to notify users as soon as possible of high-risk
-                data breaches that could personally affect them.
-              </p>
+            <div className="grid grid-cols-1 gap-4 p-4 md:grid-cols-3">
+              <div className="col-span-1 flex flex-col justify-start gap-4 rounded-md bg-[#F8F8F8] p-2 shadow-md">
+                <p className="font-bold text-gray-700">📌 Tanyakan apa saja</p>
+                <p className="text-xs font-light text-gray-500">
+                  Kami menjawab pertanyaan sebaik mungkin untuk membantumu
+                  belajar dan meraih informasi dengan luas.
+                </p>
+              </div>
+              <div className="col-span-1 flex flex-col justify-start gap-4 rounded-md bg-[#F8F8F8] p-2 shadow-md">
+                <p className="font-bold text-gray-700">
+                  🔐 Jangan sebarkan informasi sensitif
+                </p>
+                <p className="text-xs font-light text-gray-500">
+                  Untuk menghindari hal yang tidak diinginkan sebaiknya jangan
+                  sebarkan data pribadi.
+                </p>
+              </div>
+              <div className="col-span-1 flex flex-col justify-start gap-4 rounded-md bg-[#F8F8F8] p-2 shadow-md">
+                <p className="font-bold text-gray-700">
+                  🔎 Lakukan pengecekan fakta berulang
+                </p>
+                <p className="text-xs font-light text-gray-500">
+                  Informasi yang kami tampilkan memiliki kemungkinan tidak
+                  akurat.
+                </p>
+              </div>
             </div>
-            <div className="flex items-center justify-center rounded-b border-t border-gray-200 p-4 md:p-5 dark:border-gray-600">
+            <div className="flex items-center justify-center rounded-b p-4 md:p-5">
               <button
                 type="button"
-                className="rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                className="rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none"
                 onClick={() => setShowModal(false)}
               >
-                I accept
+                Saya mengerti
               </button>
             </div>
           </div>
@@ -73,27 +86,45 @@ export default function ChatbotFullPage() {
     return (
       <div className="col-span-12 bg-[#FFFFFF] p-2 md:col-span-9 md:p-12">
         <div className="flex h-full flex-col items-center justify-center gap-4 md:gap-6">
-          <div className="flex flex-col items-center gap-2 md:gap-4">
+          <div className="flex flex-col items-center gap-2 md:gap-4 mb-4">
             <p className="font-semibold text-black md:text-xl 2xl:text-2xl">
-              Senang bertemu denganmu 🤩
+              Senang Bertemu Denganmu 🤩
             </p>
             <p className="text-gray-500">Tanyakan apa saja tentang PTP</p>
+            <p className="text-2xl">Topik yang dapat ditanyakan!</p>
           </div>
-          <p>Contoh:</p>
-          <div className="flex items-center gap-4 py-4 md:py-10">
-            <div class="flex w-80 flex-col items-center bg-[#F8F8F8] p-4 px-8 shadow">
-              <p class="text-center font-semibold text-gray-800">
-                “Ceritakan tentang sejarah Jakarta”
+          <p>Pilih salah satu topik!</p>
+          <div className="flex items-center gap-4 py-4">
+            <button
+              className="flex h-40 w-80 flex-col items-center rounded bg-[#F8F8F8] p-4 px-8 shadow hover:border-2 hover:border-blue-600 focus:outline-none focus:ring focus:ring-blue-900"
+              onClick={() => setModelType("peraturan")}
+            >
+              <p className="mb-2 text-center font-semibold text-gray-800">
+                Peraturan JF-PTP 📜
               </p>
-            </div>
-            <div class="flex w-80 flex-col items-center bg-[#F8F8F8] p-4 px-8 shadow">
-              <p class="text-center font-semibold text-gray-800">
-                “Ceritakan tentang sejarah Jakarta”
+              <p>
+                Kami memberikan informasi terkait dengan peraturan ASN dan JF
+                PTP
               </p>
-            </div>
+            </button>
+            <button
+              className="flex h-40 w-80 flex-col items-center rounded bg-[#F8F8F8] p-4 px-8 shadow hover:border-2 hover:border-blue-600 focus:outline-none focus:ring focus:ring-blue-900"
+              onClick={() => setModelType("pengetahuan")}
+            >
+              <p className="mb-2 text-center font-semibold text-gray-800">
+                Pengetahuan Tentang JF-PTP 💡
+              </p>
+              <p>
+                Kami menjawab pertanyaan untuk membantu Anda lebih memahami
+                Pembinaan JF PTP
+              </p>
+            </button>
           </div>
-          <button class="bg-[#024c96] my-4 flex w-80 cursor-pointer flex-row items-center justify-center rounded-md py-4 md:my-10 text-white" onClick={() => setShowGreet(false)}>
-            <p class="font-semibold">Mulai</p>
+          <button
+            className="my-4 flex w-80 cursor-pointer flex-row items-center justify-center rounded-md bg-[#024c96] py-4 text-white md:my-10"
+            onClick={() => setShowGreet(false)}
+          >
+            <p className="font-semibold">Mulai</p>
           </button>
         </div>
       </div>
