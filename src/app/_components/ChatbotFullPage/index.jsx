@@ -86,7 +86,7 @@ export default function ChatbotFullPage() {
     return (
       <div className="col-span-12 bg-[#FFFFFF] p-2 md:col-span-9 md:p-12">
         <div className="flex h-full flex-col items-center justify-center gap-4 md:gap-6">
-          <div className="flex flex-col items-center gap-2 md:gap-4 mb-4">
+          <div className="mb-4 flex flex-col items-center gap-2 md:gap-4">
             <p className="font-semibold text-black md:text-xl 2xl:text-2xl">
               Senang Bertemu Denganmu 🤩
             </p>
@@ -94,9 +94,9 @@ export default function ChatbotFullPage() {
             <p className="text-2xl">Topik yang dapat ditanyakan!</p>
           </div>
           <p>Pilih salah satu topik!</p>
-          <div className="flex items-center gap-4 py-4">
+          <div className="flex flex-col items-center gap-4 py-4 md:flex-row">
             <button
-              className="flex h-40 w-80 flex-col items-center rounded bg-slate-100 p-4 px-8 shadow  hover:bg-slate-200 focus:ring focus:ring-sky-900"
+              className="flex h-40 w-full flex-col items-center rounded bg-slate-100 p-4 px-8 shadow hover:bg-slate-200 focus:ring focus:ring-sky-900 md:w-80"
               onClick={() => setModelType("peraturan")}
             >
               <p className="mb-2 text-center font-semibold text-gray-800">
@@ -108,7 +108,7 @@ export default function ChatbotFullPage() {
               </p>
             </button>
             <button
-              className="flex h-40 w-80 flex-col items-center rounded bg-slate-100 p-4 px-8 shadow hover:bg-slate-200 focus:ring focus:ring-sky-900"
+              className="flex h-40 w-full flex-col items-center rounded bg-slate-100 p-4 px-8 shadow hover:bg-slate-200 focus:ring focus:ring-sky-900 md:w-80"
               onClick={() => setModelType("pengetahuan")}
             >
               <p className="mb-2 text-center font-semibold text-gray-800">
