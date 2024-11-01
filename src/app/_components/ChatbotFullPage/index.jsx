@@ -96,7 +96,7 @@ export default function ChatbotFullPage() {
           <p>Pilih salah satu topik!</p>
           <div className="flex flex-col items-center gap-4 py-4 md:flex-row">
             <button
-              className="flex h-40 w-full flex-col items-center rounded bg-slate-100 p-4 px-8 shadow hover:bg-slate-200 focus:ring focus:ring-sky-900 md:w-80"
+              className="flex h-40 w-full flex-col items-center rounded bg-slate-100 p-4 px-6 shadow hover:bg-slate-200 focus:ring focus:ring-sky-900 md:w-80"
               onClick={() => setModelType("peraturan")}
             >
               <p className="mb-2 text-center font-semibold text-gray-800">
@@ -107,7 +107,7 @@ export default function ChatbotFullPage() {
               </p>
             </button>
             <button
-              className="flex h-40 w-full flex-col items-center rounded bg-slate-100 p-4 px-8 shadow hover:bg-slate-200 focus:ring focus:ring-sky-900 md:w-80"
+              className="flex h-40 w-full flex-col items-center rounded bg-slate-100 p-4 px-6 shadow hover:bg-slate-200 focus:ring focus:ring-sky-900 md:w-80"
               onClick={() => setModelType("pengetahuan")}
             >
               <p className="mb-2 text-center font-semibold text-gray-800">

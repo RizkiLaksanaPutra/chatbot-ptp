@@ -162,6 +162,7 @@ export default function ChatbotMainContent(props) {
           <PiPaperPlaneRightFill />
         </span>
       </div>
+      <p className="text-center mt-3">Chatbot dapat membuat kesalahan. Periksa kembali informasi penting.</p>
     </div>
   );
 }

@@ -1,18 +1,11 @@
-import fs from "fs/promises";
 import path from "path";
 
 // Model
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 
-// Document Loader
-import { Document } from "@langchain/core/documents";
-
-// Text Splitter
-import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
-
 // Store
-import { MemoryVectorStore } from "langchain/vectorstores/memory";
 import { GoogleGenerativeAIEmbeddings } from "@langchain/google-genai";
+import { FaissStore } from "@langchain/community/vectorstores/faiss";
 import { TaskType } from "@google/generative-ai";
 
 // Generation
@@ -21,39 +14,7 @@ import { createStuffDocumentsChain } from "langchain/chains/combine_documents";
 import { createRetrievalChain } from "langchain/chains/retrieval";
 import { StringOutputParser } from "@langchain/core/output_parsers";
 
-let isInitialized = false;
-let chain;
-
-const loadPdfDocuments = async () => {
-  try {
-    const documentsPath = path.join(
-      process.cwd(),
-      "src/data/documents/pdf/pengetahuan/documents.json"
-    );
-
-    const documents = await fs.readFile(documentsPath, { encoding: "utf-8" });
-    const parsedDocuments = JSON.parse(documents);
-
-    return parsedDocuments.map((document) => new Document(document));
-  } catch (error) {
-    throw new Error("Error while loading PDF files!", { cause: error });
-  }
-};
-
-const splitDocuments = async (documents) => {
-  try {
-    const splitter = new RecursiveCharacterTextSplitter({
-      chunkSize: 2000,
-      chunkOverlap: 200,
-    });
-
-    return await splitter.splitDocuments(documents);
-  } catch (error) {
-    throw new Error("Error while splitting documents!", { cause: error });
-  }
-};
-
-const createVectorStore = async (documents) => {
+const loadVectorStore = async (directory) => {
   try {
     const embeddings = new GoogleGenerativeAIEmbeddings({
       apiKey: process.env.GOOGLE_API_KEY,
@@ -61,9 +22,9 @@ const createVectorStore = async (documents) => {
       taskType: TaskType.SEMANTIC_SIMILARITY,
     });
 
-    return await MemoryVectorStore.fromDocuments(documents, embeddings);
+    return await FaissStore.load(directory, embeddings);
   } catch (error) {
-    throw new Error("Error while creating vector store!", { cause: error });
+    throw new Error("Error while loading vector store!", { cause: error });
   }
 };
 
@@ -105,8 +66,12 @@ const createChain = async (model, retriever) => {
 };
 
 const ask = async (prompt) => {
-  if (!isInitialized) {
-    await initialize();
+  const chain = await initialize();
+  if (!chain) {
+    return {
+      answer:
+        "Maaf, saat ini saya tidak dapat menjawab pertanyaan Anda. Silakan coba beberapa saat lagi.",
+    };
   }
 
   const result = await chain.invoke({
@@ -137,21 +102,21 @@ const initialize = async () => {
       maxRetries: 4,
     });
 
-    const loadedDocuments = await loadPdfDocuments();
-    const splitDocs = await splitDocuments(loadedDocuments);
-    const vectorStore = await createVectorStore(splitDocs);
+    const vectorStore = await loadVectorStore(
+      path.join(
+        process.cwd(),
+        "src/data/documents/pdf/pengetahuan/vector-store"
+      )
+    );
 
     const retriever = createRetriever(vectorStore);
-    chain = await createChain(model, retriever);
+    const chain = await createChain(model, retriever);
 
-    if (retriever && chain) {
-      isInitialized = true;
-      console.info("Chatbot initialized!");
-    }
+    return (retriever && chain) || null;
   } catch (error) {
     console.error("Something went wrong while initializing Chatbot", error);
-    isInitialized = false;
+    return null;
   }
 };
 
-export { ask, isInitialized };
+export { ask };
