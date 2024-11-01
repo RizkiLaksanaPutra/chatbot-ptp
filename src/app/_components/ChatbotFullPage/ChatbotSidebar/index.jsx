@@ -12,10 +12,10 @@ export default function ChatbotSidebar(props) {
 
   return (
     <>
-    <div className="hidden bg-[url('/assets/images/background.png')] bg-no-repeat bg-cover p-2 text-black md:col-span-3 md:block md:p-12">
+    <div className="hidden bg-[url('/chatbot/assets/images/background.png')] bg-no-repeat bg-cover p-2 text-black md:col-span-3 md:block md:p-12">
       <div className="flex flex-col justify-start gap-8">
         <Image
-          src="/assets/images/Logo PTP Rectangle.png"
+          src="/chatbot/assets/images/Logo PTP Rectangle.png"
           alt="Logo PTP"
           width={1000}
           height={500}

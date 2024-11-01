@@ -14,7 +14,7 @@ const generateResponse = async (prompt, modelType) => {
     prompt,
   };
 
-  const response = await fetch("/api/chatbot", {
+  const response = await fetch("/chatbot/api/chatbot", {
     method: "POST",
     body: JSON.stringify(payload),
   });
@@ -93,7 +93,7 @@ export default function ChatbotMainContent(props) {
           <li className={`${styles["chat"]} ${styles["incoming"]}`}>
             <span>
               <Image
-                src="/assets/images/mascot.png"
+                src="/chatbot/assets/images/mascot.png"
                 alt=""
                 width={50}
                 height={50}
@@ -113,7 +113,7 @@ export default function ChatbotMainContent(props) {
               {message.type === "incoming" && (
                 <span>
                   <Image
-                    src="/assets/images/mascot.png"
+                    src="/chatbot/assets/images/mascot.png"
                     alt=""
                     width={100}
                     height={100}

@@ -180,7 +180,7 @@ export default function Chatbot() {
             <li className={`${styles["chat"]} ${styles["incoming"]}`}>
               <span>
                 <Image
-                  src="/assets/images/mascot.png"
+                  src="/chatbot/assets/images/mascot.png"
                   alt=""
                   width={100}
                   height={100}
@@ -200,7 +200,7 @@ export default function Chatbot() {
                 {message.type === "incoming" && (
                   <span>
                     <Image
-                      src="/assets/images/mascot.png"
+                      src="/chatbot/assets/images/mascot.png"
                       alt=""
                       width={100}
                       height={100}

@@ -103,8 +103,7 @@ export default function ChatbotFullPage() {
                 Peraturan JF-PTP 📜
               </p>
               <p>
-                Kami memberikan informasi terkait dengan peraturan ASN dan JF
-                PTP
+                Kami memberikan informasi terkait dengan peraturan ASN dan JF PTP
               </p>
             </button>
             <button

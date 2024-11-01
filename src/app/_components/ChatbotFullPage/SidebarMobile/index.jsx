@@ -24,7 +24,7 @@ export default function SidebarMobile(props) {
             <PiListBold />
           </span>
           <Image
-            src="/assets/images/Logo PTP Rectangle.png"
+            src="/chatbot/assets/images/Logo PTP Rectangle.png"
             alt="Logo PTP"
             width={1000}
             height={500}
