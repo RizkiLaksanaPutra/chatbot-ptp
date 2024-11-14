@@ -77,12 +77,9 @@ const ask = async (prompt) => {
   const result = await chain.invoke({
     input: prompt,
   });
-  // { answer, chat_history, context, input }
 
-  // Get context source document file name
   const sourceDocuments = result.context.map((ctx) => {
     const filePath = ctx.metadata?.source ?? "";
-    // Detect path style (Linux or Windows)
     const pathSeparator = filePath.includes("/") ? "/" : "\\";
     return filePath.split(pathSeparator).pop();
   });
